@@ -1,0 +1,136 @@
+<!-- Character Result Card -->
+<div class="parchment-bg bg-dungeon-800/80 border border-gold-500/30 rounded-lg overflow-hidden glow-border backdrop-blur-sm animate-fade-in">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-dungeon-900 via-dungeon-800 to-dungeon-900 border-b border-gold-500/30 px-6 py-4">
+        <h2 class="font-display text-2xl text-gold-400 tracking-wide">{{ char.name }}</h2>
+        <p class="text-parchment-300">
+            {{ char.species.name }} {{ char.char_class.name }} &bull; {{ char.background.name }}
+        </p>
+    </div>
+
+    <!-- Download Buttons -->
+    <div class="px-6 py-4 bg-dungeon-900/50 border-b border-gold-500/20 flex flex-wrap gap-3">
+        <a href="/download/pdf/{{ species }}/{{ char_class }}/{{ background }}/{{ safe_name }}"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-blood-600 hover:bg-blood-500
+                  text-parchment-100 font-display text-sm uppercase tracking-wider
+                  rounded border border-blood-500/50
+                  transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Download PDF
+        </a>
+        <a href="/download/txt/{{ species }}/{{ char_class }}/{{ background }}/{{ safe_name }}"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-dungeon-700 hover:bg-dungeon-600
+                  text-parchment-100 font-display text-sm uppercase tracking-wider
+                  rounded border border-parchment-700/30
+                  transition-colors duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Download Text
+        </a>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="p-6 grid grid-cols-2 md:grid-cols-3 gap-4">
+        <!-- Ability Scores -->
+        {% for ab in ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'] %}
+        <div class="bg-dungeon-900/60 rounded p-3 text-center border border-parchment-700/20">
+            <div class="font-display text-xs text-gold-500 uppercase tracking-wider">{{ ab }}</div>
+            <div class="text-2xl font-bold text-parchment-100">{{ char.abilities[ab] }}</div>
+            <div class="text-sm text-parchment-400">
+                {% set mod = (char.abilities[ab] - 10) // 2 %}
+                {% if mod >= 0 %}+{% endif %}{{ mod }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Combat Stats -->
+    <div class="px-6 pb-4 flex flex-wrap gap-4 justify-center">
+        <div class="bg-gold-500/10 border border-gold-500/30 rounded-lg px-4 py-2 text-center">
+            <div class="font-display text-xs text-gold-500 uppercase">AC</div>
+            <div class="text-xl font-bold text-parchment-100">{{ char.ac }}</div>
+        </div>
+        <div class="bg-blood-600/20 border border-blood-500/30 rounded-lg px-4 py-2 text-center">
+            <div class="font-display text-xs text-blood-500 uppercase">HP</div>
+            <div class="text-xl font-bold text-parchment-100">{{ char.hp }}</div>
+        </div>
+        <div class="bg-dungeon-700/50 border border-parchment-700/30 rounded-lg px-4 py-2 text-center">
+            <div class="font-display text-xs text-parchment-400 uppercase">Speed</div>
+            <div class="text-xl font-bold text-parchment-100">{{ char.species.speed }}ft</div>
+        </div>
+        <div class="bg-dungeon-700/50 border border-parchment-700/30 rounded-lg px-4 py-2 text-center">
+            <div class="font-display text-xs text-parchment-400 uppercase">Hit Die</div>
+            <div class="text-xl font-bold text-parchment-100">d{{ char.char_class.hit_die }}</div>
+        </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="px-6 pb-4">
+        <h3 class="font-display text-sm text-gold-500 uppercase tracking-wider mb-2">Proficient Skills</h3>
+        <div class="flex flex-wrap gap-2">
+            {% for skill in char.skill_profs|sort %}
+            <span class="px-2 py-1 bg-dungeon-700/50 border border-parchment-700/30 rounded text-sm text-parchment-200">
+                {{ skill }}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Features -->
+    <div class="px-6 pb-4">
+        <h3 class="font-display text-sm text-gold-500 uppercase tracking-wider mb-2">Features & Traits</h3>
+        <div class="flex flex-wrap gap-2">
+            {% for trait in char.species.traits %}
+            <span class="px-2 py-1 bg-gold-500/10 border border-gold-500/30 rounded text-sm text-gold-300">
+                {{ trait }}
+            </span>
+            {% endfor %}
+            {% for feature in char.char_class.features %}
+            <span class="px-2 py-1 bg-blood-600/20 border border-blood-500/30 rounded text-sm text-parchment-200">
+                {{ feature }}
+            </span>
+            {% endfor %}
+            <span class="px-2 py-1 bg-dungeon-600/50 border border-parchment-600/30 rounded text-sm text-parchment-200">
+                {{ char.origin_feat }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Personality -->
+    <div class="px-6 pb-6 space-y-3">
+        <h3 class="font-display text-sm text-gold-500 uppercase tracking-wider">Personality</h3>
+        <div class="grid gap-2 text-sm">
+            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-gold-500">
+                <span class="font-display text-gold-400 text-xs uppercase">Trait:</span>
+                <span class="text-parchment-200 italic"> {{ char.personality_trait }}</span>
+            </div>
+            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-500">
+                <span class="font-display text-parchment-400 text-xs uppercase">Ideal:</span>
+                <span class="text-parchment-200 italic"> {{ char.ideal }}</span>
+            </div>
+            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-600">
+                <span class="font-display text-parchment-400 text-xs uppercase">Bond:</span>
+                <span class="text-parchment-200 italic"> {{ char.bond }}</span>
+            </div>
+            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-blood-500">
+                <span class="font-display text-blood-500 text-xs uppercase">Flaw:</span>
+                <span class="text-parchment-200 italic"> {{ char.flaw }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
+</style>

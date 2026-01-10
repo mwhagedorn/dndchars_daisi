@@ -1,0 +1,86 @@
+============================================================
+  Luven Lightfinger
+  Human Rogue (Level 1)
+  Background: Guard
+============================================================
+
+ABILITY SCORES
+----------------------------------------
+  STR: 12 ( +1)  Save:  +1  
+  DEX: 15 ( +2)  Save:  +4 *
+  CON: 14 ( +2)  Save:  +2  
+  INT:  9 ( -1)  Save:  +1 *
+  WIS: 12 ( +1)  Save:  +1  
+  CHA: 13 ( +1)  Save:  +1  
+
+COMBAT
+----------------------------------------
+  AC: 13   Initiative: +2
+  HP: 10   Hit Dice: 1d8
+  Speed: 30 ft   Prof. Bonus: +2
+
+SKILLS (* = proficient)
+----------------------------------------
+    Acrobatics:  +2
+    Animal Handling:  +1
+    Arcana:  -1
+  * Athletics:  +3
+    Deception:  +1
+    History:  -1
+  * Insight:  +3
+  * Intimidation:  +3
+  * Investigation:  +1
+    Medicine:  +1
+    Nature:  -1
+  * Perception:  +3
+    Performance:  +1
+    Persuasion:  +1
+    Religion:  -1
+  * Sleight of Hand:  +4
+  * Stealth:  +4
+    Survival:  +1
+
+FEATURES & TRAITS
+----------------------------------------
+  Species:
+    - Resourceful
+    - Skillful
+    - Versatile
+  Class:
+    - Expertise
+    - Sneak Attack (1d6)
+    - Thieves' Cant
+  Origin Feat: Alert
+
+PROFICIENCIES
+----------------------------------------
+  Armor: Light
+  Weapons: Simple, Hand Crossbow, Longsword, Rapier, Shortsword
+  Tools: Gaming Set
+  Languages: Common + 2 of choice
+
+EQUIPMENT
+----------------------------------------
+  - Rapier
+  - Shortbow
+  - 20 Arrows
+  - Burglar's Pack
+  - Leather Armor
+  - 2 Daggers
+  - Thieves' Tools
+  - Spear
+  - Light Crossbow
+  - 20 Bolts
+  - Gaming Set
+  - Hooded Lantern
+  - Manacles
+  - Quiver
+  - Traveler's Clothes
+  - 12 gp
+
+PERSONALITY
+----------------------------------------
+  Trait: I'm always polite and respectful.
+  Ideal: Greater Good. Our lot is to protect others.
+  Bond: Those who fight beside me are worth dying for.
+  Flaw: I obey the law, even if it causes misery.

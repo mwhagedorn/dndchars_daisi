@@ -1,0 +1,85 @@
+============================================================
+  Mulgar The Merciful
+  Aasimar Cleric (Level 1)
+  Background: Acolyte
+============================================================
+
+ABILITY SCORES
+----------------------------------------
+  STR: 12 ( +1)  Save:  +1  
+  DEX: 10 ( +0)  Save:  +0  
+  CON: 14 ( +2)  Save:  +2  
+  INT:  9 ( -1)  Save:  -1  
+  WIS: 17 ( +3)  Save:  +5 *
+  CHA: 13 ( +1)  Save:  +3 *
+
+COMBAT
+----------------------------------------
+  AC: 14   Initiative: +0
+  HP: 10   Hit Dice: 1d8
+  Speed: 30 ft   Prof. Bonus: +2
+
+SKILLS (* = proficient)
+----------------------------------------
+    Acrobatics:  +0
+    Animal Handling:  +3
+    Arcana:  -1
+    Athletics:  +1
+    Deception:  +1
+  * History:  +1
+  * Insight:  +5
+    Intimidation:  +1
+    Investigation:  -1
+    Medicine:  +3
+    Nature:  -1
+    Perception:  +3
+    Performance:  +1
+  * Persuasion:  +3
+  * Religion:  +1
+    Sleight of Hand:  +0
+    Stealth:  +0
+    Survival:  +3
+
+FEATURES & TRAITS
+----------------------------------------
+  Species:
+    - Celestial Resistance
+    - Darkvision
+    - Healing Hands
+    - Light Bearer
+    - Celestial Revelation
+    - Darkvision (60 ft)
+  Class:
+    - Spellcasting
+    - Divine Domain
+  Origin Feat: Magic Initiate (Cleric)
+
+PROFICIENCIES
+----------------------------------------
+  Armor: Light, Medium, Shields
+  Weapons: Simple
+  Tools: Calligrapher's Supplies
+  Languages: Common + 2 of choice
+
+EQUIPMENT
+----------------------------------------
+  - Mace
+  - Scale Mail
+  - Light Crossbow
+  - 20 bolts
+  - Priest's Pack
+  - Shield
+  - Holy Symbol
+  - Calligrapher's Supplies
+  - Prayer Book
+  - Holy Symbol
+  - Parchment (10)
+  - Robe
+  - 8 gp
+
+PERSONALITY
+----------------------------------------
+  Trait: I idolize a particular hero of my faith.
+  Ideal: Tradition. The ancient traditions must be preserved.
+  Bond: I owe my life to the priest who took me in.
+  Flaw: I put too much trust in the church hierarchy.

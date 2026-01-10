@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="text-center mb-10">
+        <div class="inline-block mb-4">
+            <svg class="w-16 h-16 text-gold-500 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16v2h2v-2h-2zm0-6v4h2v-4h-2z" opacity="0"/>
+                <path d="M12 2l2.5 6.5L21 10l-5 4.5L17.5 22 12 18l-5.5 4 1.5-7.5L3 10l6.5-1.5z"/>
+            </svg>
+        </div>
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-gold-400 tracking-wide mb-2">
+            Character Forge
+        </h1>
+        <p class="text-parchment-300 text-lg italic">
+            Craft your hero for the realms of adventure
+        </p>
+        <div class="mt-4 flex justify-center gap-1">
+            <span class="w-16 h-0.5 bg-gradient-to-r from-transparent to-gold-500"></span>
+            <span class="w-2 h-2 bg-gold-500 rotate-45 -mt-0.5"></span>
+            <span class="w-16 h-0.5 bg-gradient-to-l from-transparent to-gold-500"></span>
+        </div>
+    </div>
+
+    <!-- Character Creation Form -->
+    <form hx-post="/generate" hx-target="#result" hx-indicator=".htmx-indicator"
+          class="parchment-bg bg-dungeon-800/80 border border-gold-500/30 rounded-lg p-6 md:p-8 glow-border backdrop-blur-sm">
+
+        <!-- Character Name -->
+        <div class="mb-6">
+            <label for="name" class="block font-display text-gold-400 text-sm uppercase tracking-wider mb-2">
+                Character Name
+            </label>
+            <input type="text" id="name" name="name"
+                   placeholder="Leave blank for a random name..."
+                   class="w-full px-4 py-3 bg-dungeon-900/80 border border-parchment-700/30 rounded
+                          text-parchment-100 placeholder-parchment-600
+                          focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50
+                          transition-colors">
+        </div>
+
+        <!-- Species Selection -->
+        <div class="mb-6">
+            <label for="species" class="block font-display text-gold-400 text-sm uppercase tracking-wider mb-2">
+                Species
+            </label>
+            <select id="species" name="species" required
+                    class="w-full px-4 py-3 bg-dungeon-900/80 border border-parchment-700/30 rounded
+                           text-parchment-100 cursor-pointer
+                           focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50
+                           transition-colors">
+                {% for key, spec in species.items()|sort %}
+                <option value="{{ key }}" class="bg-dungeon-900">{{ spec.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Class Selection -->
+        <div class="mb-6">
+            <label for="char_class" class="block font-display text-gold-400 text-sm uppercase tracking-wider mb-2">
+                Class
+            </label>
+            <select id="char_class" name="char_class" required
+                    class="w-full px-4 py-3 bg-dungeon-900/80 border border-parchment-700/30 rounded
+                           text-parchment-100 cursor-pointer
+                           focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50
+                           transition-colors">
+                {% for key, cls in classes.items()|sort %}
+                <option value="{{ key }}" class="bg-dungeon-900">{{ cls.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Background Selection -->
+        <div class="mb-8">
+            <label for="background" class="block font-display text-gold-400 text-sm uppercase tracking-wider mb-2">
+                Background
+            </label>
+            <select id="background" name="background" required
+                    class="w-full px-4 py-3 bg-dungeon-900/80 border border-parchment-700/30 rounded
+                           text-parchment-100 cursor-pointer
+                           focus:outline-none focus:border-gold-500 focus:ring-1 focus:ring-gold-500/50
+                           transition-colors">
+                {% for key, bg in backgrounds.items()|sort %}
+                <option value="{{ key }}" class="bg-dungeon-900">{{ bg.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+                class="w-full py-4 px-6 bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600
+                       text-dungeon-900 font-display font-bold text-lg uppercase tracking-widest
+                       rounded border border-gold-400
+                       hover:from-gold-500 hover:via-gold-400 hover:to-gold-500
+                       focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2 focus:ring-offset-dungeon-900
+                       transform hover:scale-[1.02] active:scale-[0.98]
+                       transition-all duration-200
+                       shadow-lg shadow-gold-500/20">
+            <span class="flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                </svg>
+                Forge Character
+                <span class="htmx-indicator">
+                    <svg class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </span>
+            </span>
+        </button>
+    </form>
+
+    <!-- Results Area -->
+    <div id="result" class="mt-8"></div>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-parchment-600 text-sm">
+        <p>Compatible with D&D 5e (2024 Rules)</p>
+    </footer>
+</div>
+{% endblock %}

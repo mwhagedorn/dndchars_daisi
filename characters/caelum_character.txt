@@ -1,0 +1,76 @@
+============================================================
+  Caelum
+  Goliath Monk (Level 1)
+  Background: Merchant
+============================================================
+
+ABILITY SCORES
+----------------------------------------
+  STR: 10 ( +0)  Save:  +2 *
+  DEX: 15 ( +2)  Save:  +4 *
+  CON: 15 ( +2)  Save:  +2  
+  INT: 13 ( +1)  Save:  +1  
+  WIS: 14 ( +2)  Save:  +2  
+  CHA:  8 ( -1)  Save:  -1  
+
+COMBAT
+----------------------------------------
+  AC: 14   Initiative: +2
+  HP: 10   Hit Dice: 1d8
+  Speed: 35 ft   Prof. Bonus: +2
+
+SKILLS (* = proficient)
+----------------------------------------
+  * Acrobatics:  +4
+  * Animal Handling:  +4
+    Arcana:  +1
+    Athletics:  +0
+    Deception:  -1
+    History:  +1
+  * Insight:  +4
+    Intimidation:  -1
+    Investigation:  +1
+    Medicine:  +2
+    Nature:  +1
+    Perception:  +2
+    Performance:  -1
+  * Persuasion:  +1
+    Religion:  +1
+    Sleight of Hand:  +2
+    Stealth:  +2
+    Survival:  +2
+
+FEATURES & TRAITS
+----------------------------------------
+  Species:
+    - Giant Ancestry
+    - Large Form
+    - Powerful Build
+  Class:
+    - Unarmored Defense
+    - Martial Arts
+  Origin Feat: Lucky
+
+PROFICIENCIES
+----------------------------------------
+  Armor: None
+  Weapons: Simple, Shortsword
+  Tools: Navigator's Tools
+  Languages: Common + 2 of choice
+
+EQUIPMENT
+----------------------------------------
+  - Shortsword
+  - Dungeoneer's Pack
+  - 10 Darts
+  - Navigator's Tools
+  - 2 Pouches
+  - Traveler's Clothes
+  - 22 gp
+
+PERSONALITY
+----------------------------------------
+  Trait: I can find common ground with anyone.
+  Ideal: Opportunity. Fortune favors the bold.
+  Bond: I owe a great debt to a partner.
+  Flaw: I'll do anything to make a profit.

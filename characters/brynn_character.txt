@@ -1,0 +1,79 @@
+============================================================
+  Brynn
+  Halfling Monk (Level 1)
+  Background: Acolyte
+============================================================
+
+ABILITY SCORES
+----------------------------------------
+  STR: 12 ( +1)  Save:  +3 *
+  DEX: 15 ( +2)  Save:  +4 *
+  CON: 13 ( +1)  Save:  +1  
+  INT: 11 ( +0)  Save:  +0  
+  WIS: 16 ( +3)  Save:  +3  
+  CHA:  8 ( -1)  Save:  -1  
+
+COMBAT
+----------------------------------------
+  AC: 15   Initiative: +2
+  HP: 9   Hit Dice: 1d8
+  Speed: 30 ft   Prof. Bonus: +2
+
+SKILLS (* = proficient)
+----------------------------------------
+  * Acrobatics:  +4
+    Animal Handling:  +3
+    Arcana:  +0
+    Athletics:  +1
+    Deception:  -1
+  * History:  +2
+  * Insight:  +5
+    Intimidation:  -1
+    Investigation:  +0
+    Medicine:  +3
+    Nature:  +0
+    Perception:  +3
+    Performance:  -1
+    Persuasion:  -1
+  * Religion:  +2
+    Sleight of Hand:  +2
+    Stealth:  +2
+    Survival:  +3
+
+FEATURES & TRAITS
+----------------------------------------
+  Species:
+    - Brave
+    - Halfling Nimbleness
+    - Luck
+    - Naturally Stealthy
+  Class:
+    - Unarmored Defense
+    - Martial Arts
+  Origin Feat: Magic Initiate (Cleric)
+
+PROFICIENCIES
+----------------------------------------
+  Armor: None
+  Weapons: Simple, Shortsword
+  Tools: Calligrapher's Supplies
+  Languages: Common + 2 of choice
+
+EQUIPMENT
+----------------------------------------
+  - Shortsword
+  - Dungeoneer's Pack
+  - 10 Darts
+  - Calligrapher's Supplies
+  - Prayer Book
+  - Holy Symbol
+  - Parchment (10)
+  - Robe
+  - 8 gp
+
+PERSONALITY
+----------------------------------------
+  Trait: Nothing can shake my optimistic attitude.
+  Ideal: Charity. I always help those in need.
+  Bond: I owe my life to the priest who took me in.
+  Flaw: I put too much trust in the church hierarchy.

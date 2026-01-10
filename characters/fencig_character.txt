@@ -1,0 +1,81 @@
+============================================================
+  Fencig
+  Elf Wizard (Level 1)
+  Background: Criminal
+============================================================
+
+ABILITY SCORES
+----------------------------------------
+  STR:  8 ( -1)  Save:  -1  
+  DEX: 13 ( +1)  Save:  +1  
+  CON: 14 ( +2)  Save:  +2  
+  INT: 17 ( +3)  Save:  +5 *
+  WIS: 13 ( +1)  Save:  +3 *
+  CHA: 10 ( +0)  Save:  +0  
+
+COMBAT
+----------------------------------------
+  AC: 11   Initiative: +1
+  HP: 8   Hit Dice: 1d6
+  Speed: 30 ft   Prof. Bonus: +2
+
+SKILLS (* = proficient)
+----------------------------------------
+    Acrobatics:  +1
+    Animal Handling:  +1
+    Arcana:  +3
+    Athletics:  -1
+    Deception:  +0
+    History:  +3
+    Insight:  +1
+    Intimidation:  +0
+    Investigation:  +3
+  * Medicine:  +3
+    Nature:  +3
+  * Perception:  +3
+    Performance:  +0
+    Persuasion:  +0
+  * Religion:  +5
+  * Sleight of Hand:  +3
+  * Stealth:  +3
+    Survival:  +1
+
+FEATURES & TRAITS
+----------------------------------------
+  Species:
+    - Elven Lineage
+    - Fey Ancestry
+    - Keen Senses
+    - Trance
+    - Darkvision (60 ft)
+  Class:
+    - Spellcasting
+    - Arcane Recovery
+  Origin Feat: Alert
+
+PROFICIENCIES
+----------------------------------------
+  Armor: None
+  Weapons: Dagger, Dart, Sling, Quarterstaff, Light Crossbow
+  Tools: Thieves' Tools
+  Languages: Common + 2 of choice
+
+EQUIPMENT
+----------------------------------------
+  - Quarterstaff
+  - Arcane Focus
+  - Scholar's Pack
+  - Spellbook
+  - 2 Daggers
+  - Thieves' Tools
+  - Crowbar
+  - 2 Pouches
+  - Traveler's Clothes
+  - 16 gp
+
+PERSONALITY
+----------------------------------------
+  Trait: I always have a plan for when things go wrong.
+  Ideal: Honor. I don't steal from others in the trade.
+  Bond: I'm trying to pay off a debt I owe.
+  Flaw: I turn tail and run at the first sign of trouble.
