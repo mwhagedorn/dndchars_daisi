@@ -6,8 +6,9 @@ import os
 import random
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Mapping, Union
 from pypdf import PdfReader, PdfWriter
+from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplateNotFound
 
 # Base directory for resolving template paths
 BASE_DIR = Path(__file__).parent
@@ -289,6 +290,7 @@ class Background:
     ideals: list[str]
     bonds: list[str]
     flaws: list[str]
+    story: Optional[str] = ""
 
 
 BACKGROUNDS = {
@@ -521,6 +523,10 @@ class Character:
     bond: str
     flaw: str
     origin_feat: str
+    appearance: str = ""
+    allies_and_organizations: str = ""
+    commonly_says: str = ""
+
 
     @property
     def proficiency_bonus(self) -> int:
@@ -677,6 +683,13 @@ def generate_character(species_key: str, class_key: str, bg_key: str, name: str 
 
 def generate_text_sheet(char: Character) -> str:
     """Generate a text representation of the character sheet."""
+
+    # char.background.story
+    # char.personality_trait
+    # char.ideal
+    # char.bond
+    # char.flaw
+
     lines = []
     lines.append("=" * 60)
     lines.append(f"  {char.name}")
@@ -747,10 +760,17 @@ def generate_text_sheet(char: Character) -> str:
     # Personality
     lines.append("PERSONALITY")
     lines.append("-" * 40)
+    lines.append(f"  Backstory: {char.background.story}")
     lines.append(f"  Trait: {char.personality_trait}")
     lines.append(f"  Ideal: {char.ideal}")
     lines.append(f"  Bond: {char.bond}")
     lines.append(f"  Flaw: {char.flaw}")
+    if char.allies_and_organizations:
+        lines.append(f"  Allies & Organizations: {char.allies_and_organizations}")
+    if char.appearance:
+        lines.append(f"  Appearance: {char.appearance}")
+    if char.commonly_says:
+        lines.append(f"  Commonly Says: {char.commonly_says}")
     lines.append("")
 
     return "\n".join(lines)
@@ -814,6 +834,79 @@ def get_template_path() -> Path:
     return BASE_DIR / "templates" / "character_sheet.pdf"
 
 
+# -----------------------------
+# Jinja prompt rendering helper
+# -----------------------------
+
+# Type for abilities input when rendering the Jinja prompt
+AbilitiesInput = Union[str, Mapping[str, Union[int, str]]]
+
+
+def _format_abilities_for_prompt(abilities: AbilitiesInput) -> str:
+    """Normalize abilities to a compact, ordered string suitable for the prompt.
+
+    Accepts either a pre-formatted string or a mapping like {"STR": 15, ...}.
+    """
+    if isinstance(abilities, str):
+        return abilities
+
+    # Preferred order if present
+    order = ["STR", "DEX", "CON", "INT", "WIS", "CHA"]
+    parts: list[str] = []
+    if all(k in abilities for k in order):
+        for k in order:
+            parts.append(f"{k} {abilities[k]}")
+    else:
+        for k, v in abilities.items():
+            parts.append(f"{k} {v}")
+    return ", ".join(parts)
+
+
+def render_dnd_character_prompt(
+    *,
+    name: str,
+    char_class: str,
+    background: str,
+    race: str,
+    abilities: AbilitiesInput,
+    additional_context: Optional[str] = None,
+    templates_dir: Optional[Path] = None,
+    template_name: str = "dnd_character_prompt.md.j2",
+) -> str:
+    """Render the Jinja prompt at templates/dnd_character_prompt.md.j2.
+
+    Parameters mirror the variables used by the template. The key "class" in the
+    template is populated via a context dictionary to avoid using the Python
+    keyword directly in the function signature.
+    """
+
+    if templates_dir is None:
+        templates_dir = BASE_DIR / "templates"
+
+    env = Environment(
+        loader=FileSystemLoader(str(templates_dir)),
+        autoescape=select_autoescape(["html", "xml", "md", "j2"]),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+
+    try:
+        template = env.get_template(template_name)
+    except TemplateNotFound as e:
+        raise FileNotFoundError(f"Template not found: {templates_dir / template_name}") from e
+
+    context = {
+        "name": name,
+        "class": char_class,
+        "background": background,
+        "race": race,
+        "abilities": _format_abilities_for_prompt(abilities),
+        "additional_context": additional_context or "",
+    }
+
+    return template.render(context)
+
+
 def _build_pdf_writer(char: Character) -> PdfWriter:
     """Build a PdfWriter with character data filled in. Used by both file and bytes output."""
     reader = PdfReader(get_template_path())
@@ -827,6 +920,7 @@ def _build_pdf_writer(char: Character) -> PdfWriter:
     fields["CharacterName 2"] = char.name
     fields["ClassLevel"] = f"{char.char_class.name} 1"
     fields["Background"] = char.background.name
+    fields["Backstory"] = char.background.story
     fields["Race "] = char.species.name
     fields["Alignment"] = random.choice(["Lawful Good", "Neutral Good", "Chaotic Good", "Lawful Neutral", "Neutral", "Chaotic Neutral"])
 
@@ -890,6 +984,13 @@ def _build_pdf_writer(char: Character) -> PdfWriter:
     fields["Ideals"] = char.ideal
     fields["Bonds"] = char.bond
     fields["Flaws"] = char.flaw
+    fields["Allies"] = char.allies_and_organizations
+    feat_traits_parts = []
+    if char.appearance:
+        feat_traits_parts.append(f"Appearance: {char.appearance}")
+    if char.commonly_says:
+        feat_traits_parts.append(f"Commonly Says: {char.commonly_says}")
+    fields["Feat+Traits"] = "\n".join(feat_traits_parts)
 
     # Update text fields
     writer.update_page_form_field_values(writer.pages[0], fields)
@@ -965,7 +1066,8 @@ def main():
 
     name = input("\nCharacter name (or press Enter for random): ").strip()
     if not name:
-        name = random.choice(["Aldric", "Brynn", "Caelum", "Dara", "Eldrin", "Fira", "Galen", "Hira", "Ivar", "Jaya"])
+        name = random.choice(["Aldric", "Brynn", "Caelum", "Dara", "Eldrin", "Fira", "Galen", "Hira", "Ivar", "Jaya",
+                              "Philgo", "Tassit", "Wilberd the Silent", "Krago", "Sho-Rembo", "Feggener", "Drebb"])
 
     race_key = prompt_choice("Choose your race:", SPECIES)
     class_key = prompt_choice("Choose your class:", CLASSES)
@@ -994,6 +1096,10 @@ def main():
     print(f"PDF character sheet saved to: {pdf_file}")
 
     print("\nDone! Happy adventuring!")
+
+
+    print("---")
+    print(render_dnd_character_prompt(name=name, char_class=class_key, background=bg_key, race = race_key, abilities = char.abilities ))
 
 
 if __name__ == "__main__":

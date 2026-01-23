@@ -6,6 +6,7 @@
     <title>{% block title %}D&D 5e Character Generator{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.10/dist/ext/sse.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -71,8 +72,10 @@
     </script>
     <style>
         .htmx-indicator { display: none; }
-        .htmx-request .htmx-indicator { display: inline; }
-        .htmx-request button { opacity: 0.7; }
+        .htmx-request .htmx-indicator { display: inline !important; }
+        .htmx-request .htmx-indicator-hide { display: none !important; }
+        .htmx-request button { opacity: 0.7; cursor: wait; }
+        form.htmx-request { pointer-events: none; }
 
         /* Parchment texture overlay */
         .parchment-bg {
@@ -99,6 +102,27 @@
         }
     </style>
     {% block head %}{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('HTMX loaded:', typeof htmx !== 'undefined');
+        });
+        // HTMX debugging
+        document.addEventListener('htmx:beforeRequest', function(evt) {
+            console.log('HTMX beforeRequest:', evt.detail);
+            document.body.style.cursor = 'wait';
+        });
+        document.addEventListener('htmx:afterRequest', function(evt) {
+            console.log('HTMX afterRequest:', evt.detail);
+            document.body.style.cursor = 'default';
+        });
+        document.addEventListener('htmx:responseError', function(evt) {
+            console.error('HTMX responseError:', evt.detail);
+            document.body.style.cursor = 'default';
+        });
+        document.addEventListener('htmx:sendError', function(evt) {
+            console.error('HTMX sendError:', evt.detail);
+        });
+    </script>
 </head>
 <body class="bg-dungeon-950 text-parchment-100 min-h-screen font-body">
     <!-- Background decoration -->

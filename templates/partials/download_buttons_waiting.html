@@ -1,0 +1,36 @@
+<!-- Download buttons while background is generating -->
+<div id="download-buttons" class="flex flex-col gap-3">
+    <div class="flex items-center gap-2 text-gold-400 text-sm">
+        <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span class="italic">Background details are being created...</span>
+    </div>
+    <div class="flex flex-wrap gap-3">
+        <a href="/download/pdf/{{ char_token }}"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-dungeon-700 hover:bg-dungeon-600
+                  text-parchment-400 font-display text-sm uppercase tracking-wider
+                  rounded border border-parchment-700/30
+                  transition-colors duration-200"
+           onclick="return confirm('Background details are still generating. Download now without them?')">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Download PDF (Basic)
+        </a>
+        <a href="/download/txt/{{ char_token }}"
+           class="inline-flex items-center gap-2 px-4 py-2 bg-dungeon-700 hover:bg-dungeon-600
+                  text-parchment-400 font-display text-sm uppercase tracking-wider
+                  rounded border border-parchment-700/30
+                  transition-colors duration-200"
+           onclick="return confirm('Background details are still generating. Download now without them?')">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Download Text (Basic)
+        </a>
+    </div>
+</div>

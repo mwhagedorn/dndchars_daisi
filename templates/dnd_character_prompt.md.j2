@@ -1,0 +1,42 @@
+You are a Forgotten Realms lore expert and D&D 5e character writer. Generate a character background and personality
+for the following character.
+
+## Character Details
+- **Name:** {{ name }}
+- **Class:** {{ class }}
+- **Background:** {{ background }}
+- **Race:** {{ race }}
+- **Abilities:** {{ abilities }}
+{% if additional_context %}- **Additional context:** {{ additional_context }}{% endif %}
+
+## Instructions
+Create the following for this character, grounded in Forgotten Realms lore and consistent with the character's class and background:
+
+1. **background_story** (70 words max): A compelling origin story explaining how they came to their current path. Reference specific Forgotten Realms locations, factions, or events where appropriate.
+
+2. **personality_trait** (one phrase): A distinctive behavioral quirk or habit.
+
+3. **ideal** (40 chars max): A core belief or principle that drives their actions.
+
+4. **bond** (40 chars max): A specific person, place, or object they are deeply connected to.
+
+5. **flaw** (40 chars max ): A weakness, vice, or blind spot that could create problems.
+
+6. **allies_and_organizations** (short phrase): Factions, groups, or notable individuals the character has ties to. Include the nature of the relationship (member, ally, former associate, etc.) and any obligations or benefits.
+
+7. **appearance** (short phrase): Physical description including build, distinguishing features, typical attire, and any notable items or accessories they carry.
+
+8. **commonly_says** (short phrase): Come up with a short phrase that describes something that this character says often.
+## Guidelines
+- Keep traits mechanically neutral but narratively rich
+- Ensure the flaw creates genuine tension, not just a quirky inconvenience
+- Make the bond specific and actionable for adventure hooks
+- Align ideals with typical alignments for the class/background but allow variation
+- Use canonical Forgotten Realms factions (Harpers, Zhentarim, Lords' Alliance, etc.) where appropriate
+- Make appearance details consistent with race, class, and background
+- if you are going to assume gender, assume male
+- Ensure the flaw creates genuine tension, not just a quirky inconvenience
+- the output has to be structured such that it can be used to populate a character sheet
+- if traits, ideals, bonds or flaws are specified, verify that that they fit with the character, if relevant enhance
+- all the answers should fit in the smallish space provided in the dnd pdf char sheets, so be brief
+- please return the result as a json file, the json file should not have any nested items

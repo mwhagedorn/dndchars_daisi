@@ -9,29 +9,12 @@
     </div>
 
     <!-- Download Buttons -->
-    <div class="px-6 py-4 bg-dungeon-900/50 border-b border-gold-500/20 flex flex-wrap gap-3">
-        <a href="/download/pdf/{{ species }}/{{ char_class }}/{{ background }}/{{ safe_name }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-blood-600 hover:bg-blood-500
-                  text-parchment-100 font-display text-sm uppercase tracking-wider
-                  rounded border border-blood-500/50
-                  transition-colors duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            Download PDF
-        </a>
-        <a href="/download/txt/{{ species }}/{{ char_class }}/{{ background }}/{{ safe_name }}"
-           class="inline-flex items-center gap-2 px-4 py-2 bg-dungeon-700 hover:bg-dungeon-600
-                  text-parchment-100 font-display text-sm uppercase tracking-wider
-                  rounded border border-parchment-700/30
-                  transition-colors duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            Download Text
-        </a>
+    <div id="download-section" class="px-6 py-4 bg-dungeon-900/50 border-b border-gold-500/20">
+        {% if show_thinking %}
+        {% include "partials/download_buttons_waiting.html" with context %}
+        {% else %}
+        {% include "partials/download_buttons_ready.html" with context %}
+        {% endif %}
     </div>
 
     <!-- Stats Grid -->
@@ -101,27 +84,13 @@
         </div>
     </div>
 
-    <!-- Personality -->
-    <div class="px-6 pb-6 space-y-3">
-        <h3 class="font-display text-sm text-gold-500 uppercase tracking-wider">Personality</h3>
-        <div class="grid gap-2 text-sm">
-            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-gold-500">
-                <span class="font-display text-gold-400 text-xs uppercase">Trait:</span>
-                <span class="text-parchment-200 italic"> {{ char.personality_trait }}</span>
-            </div>
-            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-500">
-                <span class="font-display text-parchment-400 text-xs uppercase">Ideal:</span>
-                <span class="text-parchment-200 italic"> {{ char.ideal }}</span>
-            </div>
-            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-600">
-                <span class="font-display text-parchment-400 text-xs uppercase">Bond:</span>
-                <span class="text-parchment-200 italic"> {{ char.bond }}</span>
-            </div>
-            <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-blood-500">
-                <span class="font-display text-blood-500 text-xs uppercase">Flaw:</span>
-                <span class="text-parchment-200 italic"> {{ char.flaw }}</span>
-            </div>
-        </div>
+    <!-- Personality (loaded via SSE or inline if already complete) -->
+    <div class="px-6 pb-6">
+        {% if show_thinking %}
+        {% include "partials/personality_thinking.html" with context %}
+        {% else %}
+        {% include "partials/personality_complete.html" with context %}
+        {% endif %}
     </div>
 </div>
 

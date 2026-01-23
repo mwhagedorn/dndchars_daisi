@@ -1,0 +1,14 @@
+[project]
+name = "dndchars"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+    "pydantic-settings",
+    "pypdf",
+    "python-multipart",
+    "jinja2",
+    "itsdangerous",
+    "daisi_sdk @ git+https://github.com/mwhagedorn/daisi-sdk-python.git@master",
+]

@@ -1,0 +1,28 @@
+<!-- Completed personality section -->
+<div id="personality-section" class="space-y-3">
+    <h3 class="font-display text-sm text-gold-500 uppercase tracking-wider">Personality</h3>
+    {% if char.background.story %}
+    <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-gold-600">
+        <span class="font-display text-gold-400 text-xs uppercase">Backstory:</span>
+        <span class="text-parchment-200 italic"> {{ char.background.story }}</span>
+    </div>
+    {% endif %}
+    <div class="grid gap-2 text-sm">
+        <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-gold-500">
+            <span class="font-display text-gold-400 text-xs uppercase">Trait:</span>
+            <span class="text-parchment-200 italic"> {{ char.personality_trait }}</span>
+        </div>
+        <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-500">
+            <span class="font-display text-parchment-400 text-xs uppercase">Ideal:</span>
+            <span class="text-parchment-200 italic"> {{ char.ideal }}</span>
+        </div>
+        <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-parchment-600">
+            <span class="font-display text-parchment-400 text-xs uppercase">Bond:</span>
+            <span class="text-parchment-200 italic"> {{ char.bond }}</span>
+        </div>
+        <div class="bg-dungeon-900/40 rounded p-3 border-l-2 border-blood-500">
+            <span class="font-display text-blood-500 text-xs uppercase">Flaw:</span>
+            <span class="text-parchment-200 italic"> {{ char.flaw }}</span>
+        </div>
+    </div>
+</div>
