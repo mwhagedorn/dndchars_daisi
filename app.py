@@ -1,6 +1,7 @@
 """FastAPI web app for D&D Character Generator with HTMX frontend."""
 
 import logging
+import re
 from collections import defaultdict
 from pathlib import Path
 
@@ -807,28 +808,105 @@ def extract_json_from_response(text: str) -> str:
     return text
 
 
+def sanitize_json_text(text: str) -> str:
+    """Normalize and sanitize an extracted JSON string so json.loads is more likely to succeed.
+
+    - Strip BOM and surrounding code-fence backticks.
+    - Replace curly/smart quotes and ellipsis with ASCII equivalents.
+    - Escape control chars U+0000..U+001F as \\uXXXX.
+    - If possible, trim to the outermost {...} object.
+    """
+    # Strip BOM and surrounding whitespace
+    text = text.lstrip("\ufeff").strip()
+
+    # Remove leading/trailing code-fence remnants like ```json or ``` or ``
+    text = re.sub(r"^`{1,3}\s*(?:json)?\s*", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"\s*`{1,3}\s*$", "", text)
+
+    # Normalize common fancy punctuation to ASCII
+    trans = {
+        0x2018: "'",  # ‘
+        0x2019: "'",  # ’
+        0x201C: '"',  # “
+        0x201D: '"',  # ”
+        0x2026: "...",# …
+        0x2013: "-",  # –
+        0x2014: "-",  # —
+    }
+    text = text.translate(trans)
+
+    # Escape control characters (keep printable whitespace inside strings by escaping; safe for json.loads)
+    text = re.sub(r'[\x00-\x1f]', lambda m: "\\u%04x" % ord(m.group(0)), text)
+
+    # If there's a clear outer JSON object, trim to it
+    start = text.find("{")
+    end = text.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        text = text[start : end + 1]
+
+    return text
+
 def parse_prompt_return_values(prompt_text: str) -> defaultdict[str, str]:
     """Parse JSON `prompt_text` and populate a defaultdict[str].
 
-    - All top-level keys from the JSON object are copied into the defaultdict.
-    - Non-string values are coerced to strings.
-    - Nested dicts/lists are JSON-serialized so nothing is lost.
-    - On any parse error or non-dict input, returns an empty defaultdict.
+    - Tries normal json.loads on sanitized text.
+    - On parse error, falls back to regex extraction of common string keys so
+      presence of `background_story` still counts as success.
     """
     import json
+    import re
 
     result: defaultdict[str, str] = defaultdict(str)
     cleaned_text = extract_json_from_response(prompt_text)
-    sanitized = re.sub(r'[\x00-\x1f]', lambda m: "\\u%04x" % ord(m.group(0)), cleaned_text)
+    sanitized = sanitize_json_text(cleaned_text)
     try:
         data = json.loads(sanitized)
     except Exception as e:
         logger.error(f"JSON parse failed: {e}")
         logger.error(f"Attempted to parse: {cleaned_text}")
+        # Fallback: try to extract common string fields with regex (handles slightly-broken JSON)
+        def _extract_str_key(text: str, key: str) -> str:
+            # Try double-quoted JSON strings first
+            m = re.search(rf'"{re.escape(key)}"\s*:\s*("(?:\\.|[^"\\])*")', text)
+            if m:
+                try:
+                    return json.loads(m.group(1))
+                except Exception:
+                    return m.group(1).strip('"')
+            # Try single-quoted fallback (some LLM output uses smart/single quotes)
+            m2 = re.search(rf"'{re.escape(key)}'\s*:\s*('(\\.|[^'\\])*')", text)
+            if m2:
+                return m2.group(1).strip("'")
+            # Try a loose capture (unquoted key or malformed)
+            m3 = re.search(rf'{re.escape(key)}\s*:\s*("(?:\\.|[^"\\])*"|' + r"'(?:\\.|[^'\\])*')", text)
+            if m3:
+                val = m3.group(1)
+                return val.strip('"').strip("'")
+            return ""
+
+        keys = [
+            "background_story",
+            "personality_trait",
+            "personality_traits",
+            "ideal",
+            "bond",
+            "flaw",
+            "allies_and_organizations",
+            "appearance",
+            "commonly_says",
+        ]
+        for k in keys:
+            result[k] = _extract_str_key(cleaned_text, k)
+        # If we found a JSON-like object elsewhere, try to coerce it to _value
+        if not any(result.values()):
+            # attempt to salvage full JSON object text as raw string
+            obj_match = re.search(r"\{[\s\S]*\}", cleaned_text)
+            if obj_match:
+                result["_value"] = obj_match.group(0)
         return result
 
+    # If parsed successfully
     if not isinstance(data, dict):
-        # If it's a list or scalar, store it under a generic key
         result["_value"] = json.dumps(data) if not isinstance(data, str) else data
         return result
 
@@ -838,7 +916,6 @@ def parse_prompt_return_values(prompt_text: str) -> defaultdict[str, str]:
         elif value is None:
             result[key] = ""
         else:
-            # Coerce numbers, bools, lists, dicts, etc. to string
             try:
                 result[key] = (
                     str(value)
