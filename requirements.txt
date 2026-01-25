@@ -1,4 +1,4 @@
-fastapi
+dfastapi
 uvicorn
 pydantic-settings
 pypdf

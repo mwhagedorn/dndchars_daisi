@@ -2,9 +2,58 @@
 
 A character generator for Dungeons & Dragons 5th Edition (2024 rules) that creates complete level 1 characters with filled PDF character sheets.
 
+**This is a demo application for the [DAISI distributed AI network](https://daisi.net).** It showcases how to integrate AI-powered content generation using the DAISI SDK to create character backstories, personality traits, and role-playing hooks.
+
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+## DAISI Integration
+
+This application uses the [DAISI Python SDK](https://github.com/daisinet/daisi-sdk-python) to generate AI-powered character content including:
+- Personality traits and quirks
+- Character backstories
+- Bonds, ideals, and flaws
+- Role-playing hooks
+
+Learn more about DAISI:
+- [DAISI Website](https://daisi.net)
+- [SDK Documentation](https://daisi.ai/Learn/SDK)
+- [Python SDK on GitHub](https://github.com/daisinet/daisi-sdk-python)
+
+## Application Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Browser
+    participant FastAPI
+    participant DAISI
+
+    User->>Browser: Select species, class, background
+    Browser->>FastAPI: POST /generate
+    FastAPI->>FastAPI: Generate base character (stats, skills, equipment)
+    FastAPI->>Browser: Return character card + SSE connection
+
+    Browser->>FastAPI: GET /stream-supplemental/{token} (SSE)
+    FastAPI->>DAISI: Create session
+    DAISI-->>FastAPI: Session ID
+    FastAPI->>DAISI: Send character prompt
+
+    loop Streaming Response
+        DAISI-->>FastAPI: AI-generated content (tokens)
+        FastAPI-->>Browser: SSE progress updates
+    end
+
+    FastAPI->>FastAPI: Parse AI response (personality, backstory)
+    FastAPI-->>Browser: SSE final personality HTML
+    Browser->>Browser: Update character card
+
+    User->>Browser: Click Download PDF
+    Browser->>FastAPI: GET /download/pdf/{token}
+    FastAPI->>FastAPI: Fill PDF template with character data
+    FastAPI-->>Browser: PDF file
+```
 
 ## Features
 
