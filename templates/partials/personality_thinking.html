@@ -100,7 +100,7 @@
             }
         });
 
-        // Cleanup when SSE container is replaced
+        // Cleanup when SSE container is replaced and stop download spinner if error
         const observer = new MutationObserver((mutations) => {
             for (const mutation of mutations) {
                 for (const node of mutation.removedNodes) {
@@ -108,6 +108,23 @@
                         clearInterval(timerInterval);
                         clearInterval(messageInterval);
                         observer.disconnect();
+
+                        // Check if replacement contains error - if so, update download buttons
+                        const downloadButtons = document.getElementById('download-buttons');
+                        if (downloadButtons && downloadButtons.querySelector('.animate-spin')) {
+                            // Still has spinner, meaning downloads event didn't process - remove it
+                            const spinner = downloadButtons.querySelector('.animate-spin');
+                            if (spinner) {
+                                const spinnerContainer = spinner.closest('.flex.items-center');
+                                if (spinnerContainer) spinnerContainer.remove();
+                            }
+                            // Remove confirmation dialogs from download links
+                            downloadButtons.querySelectorAll('a[onclick]').forEach(a => {
+                                a.removeAttribute('onclick');
+                                a.classList.remove('text-parchment-400');
+                                a.classList.add('text-parchment-100');
+                            });
+                        }
                     }
                 }
             }
