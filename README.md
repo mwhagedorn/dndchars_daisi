@@ -2,7 +2,7 @@
 
 A character generator for Dungeons & Dragons 5th Edition (2024 rules) that creates complete level 1 characters with filled PDF character sheets.
 
-**This is a demo application for the [DAISI distributed AI network](https://daisi.net).** It showcases how to integrate AI-powered content generation using the DAISI SDK to create character backstories, personality traits, and role-playing hooks.
+**This is a demo application for the [DAISI distributed AI network](https://daisi.ai).** It showcases how to integrate AI-powered content generation using the DAISI SDK to create character backstories, personality traits, and role-playing hooks.
 
 ![Python](https://img.shields.io/badge/python-3.10+-blue.svg)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green.svg)
@@ -17,7 +17,7 @@ This application uses the [DAISI Python SDK](https://github.com/daisinet/daisi-s
 - Role-playing hooks
 
 Learn more about DAISI:
-- [DAISI Website](https://daisi.net)
+- [DAISI Website](https://daisi.ai)
 - [SDK Documentation](https://daisi.ai/Learn/SDK)
 - [Python SDK on GitHub](https://github.com/daisinet/daisi-sdk-python)
 
