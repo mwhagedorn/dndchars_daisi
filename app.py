@@ -383,7 +383,7 @@ async def stream_supplemental(request: Request, token: str):
             yield f"event: downloads\ndata: {error_download_html}\n\n"
             # Small delay to ensure downloads event is processed
             await asyncio.sleep(0.1)
-            yield f'event: personality\ndata: <div class="text-red-500">Error loading personality data</div>\n\n'
+            yield f'event: personality\ndata: <div class="text-red-500">Error creating detailled personality data, you can download the basic version</div>\n\n'
 
     return StreamingResponse(
         event_generator(),
