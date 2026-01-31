@@ -1025,7 +1025,8 @@ def _build_pdf_writer(char: Character) -> PdfWriter:
     return writer
 
 
-def generate_pdf_bytes(char: Character) -> bytes:
+def \
+        generate_pdf_bytes(char: Character) -> bytes:
     """Generate a filled PDF character sheet and return as bytes. Used by web tier."""
     writer = _build_pdf_writer(char)
     buffer = io.BytesIO()
