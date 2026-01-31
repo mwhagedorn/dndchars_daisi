@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-pydantic-settings
-pypdf
-python-multipart
-jinja2
-itsdangerous
-git+https://github.com/mwhagedorn/daisi-sdk-python.git@master#egg=daisi_sdk
