@@ -730,6 +730,7 @@ def process_supplemental_data(
         abilities=char.abilities,
     )
 
+    supplemental_data: defaultdict[str, str] = defaultdict(str)
     for attempt in range(max_retries):
         attempt_num = attempt + 1
         logger.debug(f"Calling LLM agent (attempt {attempt_num}/{max_retries})...")
@@ -742,7 +743,18 @@ def process_supplemental_data(
         if attempt > 0:
             clear_daisi_session(request)
 
-        json_new_values = call_llm_agent(request, prompt_text)
+        try:
+            json_new_values = call_llm_agent(request, prompt_text)
+        except Exception as e:
+            logger.warning(
+                f"LLM call failed (attempt {attempt_num}/{max_retries}): {e}"
+            )
+            if attempt_num < max_retries:
+                backoff = 2 ** attempt
+                logger.info(f"Waiting {backoff}s before retry...")
+                time.sleep(backoff)
+            continue
+
         logger.debug(
             f"LLM response: {json_new_values[:800] if json_new_values else '(empty)'}..."
         )

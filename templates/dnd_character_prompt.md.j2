@@ -20,7 +20,7 @@ ideal:  <= 40 chars, A core belief or principle that drives their actions.
 bond: <= 40 chars, A specific person, place, or object they are deeply connected to.
 flaw:  <= 40 chars, creates real tension
 allies_and_organizations: short phrase, include relationship
-appearance: short phrase, including what they carry
+appearance: 2-3 sentences describing physical look, clothing, notable gear, and demeanor
 commonly_says:  short phrase, Come up with a short phrase that describes something that this character says often.
 
 ## Guidelines
@@ -29,5 +29,17 @@ commonly_says:  short phrase, Come up with a short phrase that describes somethi
 - Keep all entries brief and character-sheet ready
 
 ## Output Format
-Return a single flat JSON object.
-No nested items
+Return ONLY a single flat JSON object with exactly these keys, no other text:
+```json
+{
+  "background_story": "...",
+  "personality_trait": "...",
+  "ideal": "...",
+  "bond": "...",
+  "flaw": "...",
+  "allies_and_organizations": "...",
+  "appearance": "...",
+  "commonly_says": "..."
+}
+```
+All values must be strings. No nested objects or arrays. No markdown outside the JSON.
